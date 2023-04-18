@@ -9,7 +9,7 @@ class Region(models.Model):
 
 
 class District(models.Model):
-    region = models.ForeignKey(Region, on_delete=models.CASCADE)
+    region = models.ForeignKey(Region, on_delete=models.CASCADE, related_name="districts")
     name = models.CharField(max_length = 255)
 
     def __str__(self):
@@ -17,7 +17,7 @@ class District(models.Model):
     
 
 class Station(models.Model):
-    district = models.ForeignKey(District, on_delete=models.CASCADE)
+    district = models.ForeignKey(District, on_delete=models.CASCADE, related_name="stations")
     nomi = models.CharField(max_length = 525)
     manizl = models.CharField(max_length = 525)
     telefon = models.CharField(max_length = 125)
@@ -27,7 +27,7 @@ class Station(models.Model):
     
 
 class SunEnergy(models.Model):
-    station = models.OneToOneField(Station, on_delete=models.CASCADE)
+    station = models.OneToOneField(Station, on_delete=models.CASCADE, related_name="sun_energies")
     nomi = models.CharField(max_length = 255)
     kuchlanish = models.FloatField()
     tok_kuchi = models.FloatField()
@@ -40,7 +40,7 @@ class SunEnergy(models.Model):
     
     
 class WaterEnergy(models.Model):
-    station = models.OneToOneField(Station, on_delete=models.CASCADE)
+    station = models.OneToOneField(Station, on_delete=models.CASCADE, related_name="water_energies")
     nomi = models.CharField(max_length = 255)
     kuchlanish = models.FloatField()
     tok_kuchi = models.FloatField()
@@ -53,7 +53,7 @@ class WaterEnergy(models.Model):
     
     
 class WindEnergy(models.Model):
-    station = models.OneToOneField(Station, on_delete=models.CASCADE)
+    station = models.OneToOneField(Station, on_delete=models.CASCADE, related_name="wind_energies")
     nomi = models.CharField(max_length = 255)
     kuchlanish = models.FloatField()
     tok_kuchi = models.FloatField()
@@ -66,7 +66,7 @@ class WindEnergy(models.Model):
     
     
 class DiselEnergy(models.Model):
-    station = models.OneToOneField(Station, on_delete=models.CASCADE)
+    station = models.OneToOneField(Station, on_delete=models.CASCADE, related_name="disel_energies")
     nomi = models.CharField(max_length = 255)
     kuchlanish = models.FloatField()
     tok_kuchi = models.FloatField()
@@ -79,7 +79,7 @@ class DiselEnergy(models.Model):
     
     
 class AccumulatorEnergy(models.Model):
-    station = models.OneToOneField(Station, on_delete=models.CASCADE)
+    station = models.OneToOneField(Station, on_delete=models.CASCADE, related_name="accumulator_energies")
     nomi = models.CharField(max_length = 255)
     kuchlanish = models.FloatField()
     tok_kuchi = models.FloatField()
